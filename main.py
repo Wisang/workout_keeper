@@ -8,7 +8,6 @@ NUTRITION_KEY = os.environ["NT_API_KEY"]
 # NUTRITION_ID = "56f4204d"
 # NUTRITION_KEY = "0058ed8edb9817a2f81bc4886e9245fa"
 SHEETY_PASS = "bnVsbDpudWxs"
-SHEETY_AUTH_BASIC = "d2lzYW5nOmJuVnNiRHB1ZFd4cw"
 
 natural_exercise_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
 # sheety_endpoint = "https://api.sheety.co/b11e9ee43e97ab01dec13f717b53914f/wisangsWorkouts/workouts"
