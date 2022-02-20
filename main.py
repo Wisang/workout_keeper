@@ -13,7 +13,7 @@ natural_exercise_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercis
 # sheety_endpoint = "https://api.sheety.co/b11e9ee43e97ab01dec13f717b53914f/wisangsWorkouts/workouts"
 sheety_endpoint = os.environ["SHEET_ENDPOINT"]
 sheety_header = {
-  "Authorization": "Bearer {os.environ['TOKEN']}"
+  "Authorization": f"Bearer {os.environ['TOKEN']}"
 }
 
 
