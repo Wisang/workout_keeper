@@ -1,25 +1,23 @@
-import duration as duration
 import requests
-
+import os
 from datetime import datetime
 
 NUTRITION_ID = "56f4204d"
 NUTRITION_KEY = "0058ed8edb9817a2f81bc4886e9245fa"
+SHEETY_PASS = "bnVsbDpudWxs"
+SHEETY_AUTH_BASIC = "d2lzYW5nOmJuVnNiRHB1ZFd4cw"
 
 natural_exercise_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
 sheety_endpoint = "https://api.sheety.co/b11e9ee43e97ab01dec13f717b53914f/wisangsWorkouts/workouts"
+sheety_header = {
+  "Authorization": "Bearer d2lzYW5nOmJuVnNiRHB1ZFd4cw"
+}
+
 
 header = {
   "x-app-id": NUTRITION_ID,
   "x-app-key": NUTRITION_KEY,
   "x-remote-user-id": "0",
-}
-
-sheety_header = {
-  "workouts": {
-    "name": "wisang",
-    "email": "wseom7@gmail.com"
-  }
 }
 
 user_answer = input("tell me which exercise you did: ")
@@ -30,27 +28,24 @@ natural_exercise_config = {
 
 response = requests.post(url=natural_exercise_endpoint, headers=header, json=natural_exercise_config)
 
-exercise_data = response.json()["exercises"][0]
+exercise_data = response.json()["exercises"]
 
 print(exercise_data)
 
 today = datetime.now().strftime("%d/%m/%Y")
-time = datetime.now().strftime("%H/%M/%S")
+time = datetime.now().strftime("%X")
 
-sheety_header = {
-  "Content-Type": "application/json",
-}
-
-sheety_row = {
-  "workout": {
-    "date": today,
-    "time": time,
-    "exercise": f"{exercise_data['user_input']}",
-    "duration": f"{exercise_data['duration_min']}",
-    "calories": f"{exercise_data['nf_calories']}",
+for exercise in exercise_data:
+  sheety_row = {
+    "workout": {
+      "date": today,
+      "time": time,
+      "exercise": f"{exercise['user_input']}",
+      "duration": f"{exercise['duration_min']}",
+      "calories": f"{exercise['nf_calories']}",
+    }
   }
-}
 
-response = requests.post(url=sheety_endpoint, json=sheety_row)
-print(response.json())
+  response = requests.post(url=sheety_endpoint, headers=sheety_header, json=sheety_row)
+  print(response.json())
 
